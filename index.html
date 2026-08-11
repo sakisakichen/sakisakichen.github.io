@@ -3,63 +3,233 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Saki Chen | Analytics Portfolio</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      color: #1f2933;
+      background: #ffffff;
+      line-height: 1.6;
+    }
+
+    header,
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+
+    header {
+      padding-top: 80px;
+      padding-bottom: 55px;
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 42px;
+      letter-spacing: -1px;
+    }
+
+    header .role {
+      margin: 0 0 22px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #1f2933;
+    }
+
+    header .intro {
+      max-width: 680px;
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.5;
+      color: #52606d;
+    }
+
+    .divider {
+      max-width: 936px;
+      margin: 0 auto;
+      border: 0;
+      border-top: 1px solid #e4e7eb;
+    }
+
+    main {
+      padding-top: 50px;
+      padding-bottom: 100px;
+    }
+
+    section {
+      margin-bottom: 60px;
+    }
+
+    section h2 {
+      margin-bottom: 35px;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #7b8794;
+    }
+
+    .item {
+      margin-bottom: 36px;
+    }
+
+    .item h3 {
+      margin: 0 0 6px;
+      font-size: 22px;
+      color: #1f2933;
+    }
+
+    .item p {
+      max-width: 740px;
+      margin: 0;
+      color: #52606d;
+      font-size: 16px;
+    }
+
+    .case-subject {
+      margin-top: 34px;
+    }
+
+    .case-subject h3 {
+      margin-bottom: 8px;
+      font-size: 20px;
+    }
+
+    .case {
+      margin: 0;
+      color: #52606d;
+      font-size: 16px;
+    }
+
+    .coming-soon {
+      color: #9aa5b1;
+      font-size: 15px;
+    }
+
+    main hr {
+      margin: 60px 0;
+      border: 0;
+      border-top: 1px solid #e4e7eb;
+    }
+
+    @media (max-width: 700px) {
+      header {
+        padding-top: 50px;
+      }
+
+      header h1 {
+        font-size: 34px;
+      }
+
+      header .intro {
+        font-size: 18px;
+      }
+
+      header,
+      main {
+        padding-left: 22px;
+        padding-right: 22px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
   <header>
     <h1>Saki Chen</h1>
-    <p>Business-first Analytics</p>
-    <p>
+
+    <p class="role">
+      Business-first Analytics
+    </p>
+
+    <p class="intro">
       Turning business questions into trusted data,
       meaningful metrics, and actionable insights.
     </p>
   </header>
 
-  <hr>
+  <hr class="divider">
 
   <main>
 
+    <!-- CATEGORY 1 -->
     <section>
       <h2>Projects</h2>
 
-      <h3>SNAP Analytics Platform</h3>
-      <p>
-        An end-to-end analytics platform built with public SNAP data,
-        covering ingestion, data quality, transformation,
-        metric design, and reporting.
-      </p>
+      <div class="item">
+        <h3>SNAP Analytics Platform</h3>
+        <p>
+          An end-to-end analytics platform built with public SNAP data,
+          covering ingestion, data quality, transformation,
+          metric design, and reporting.
+        </p>
+      </div>
 
-      <h3>Jira Sprint Analytics</h3>
-      <p>
-        An analytics workflow designed to identify delivery,
-        staffing, and operational risks across sprint data.
-      </p>
+      <div class="item">
+        <h3>Jira Sprint Analytics</h3>
+        <p>
+          An analytics workflow designed to identify delivery,
+          staffing, and operational risks across sprint data.
+        </p>
+      </div>
     </section>
 
     <hr>
 
+    <!-- CATEGORY 2 -->
     <section>
       <h2>Case Studies</h2>
 
-      <h3>Data Quality</h3>
-      <p>Case 01 — When is raw data actually ready for analytics?</p>
+      <div class="case-subject">
+        <h3>Data Quality</h3>
+        <p class="case">
+          Case 01 — When is raw data actually ready for analytics?
+        </p>
+      </div>
 
-      <h3>KPI & Metric Design</h3>
-      <p>Coming soon</p>
+      <div class="case-subject">
+        <h3>KPI &amp; Metric Design</h3>
+        <p class="coming-soon">
+          Coming soon
+        </p>
+      </div>
 
-      <h3>Root Cause Analysis</h3>
-      <p>Coming soon</p>
+      <div class="case-subject">
+        <h3>Root Cause Analysis</h3>
+        <p class="coming-soon">
+          Coming soon
+        </p>
+      </div>
 
-      <h3>Dashboard & BI</h3>
-      <p>Coming soon</p>
+      <div class="case-subject">
+        <h3>Dashboard &amp; BI</h3>
+        <p class="coming-soon">
+          Coming soon
+        </p>
+      </div>
 
-      <h3>Analytics Engineering</h3>
-      <p>Coming soon</p>
+      <div class="case-subject">
+        <h3>Analytics Engineering</h3>
+        <p class="coming-soon">
+          Coming soon
+        </p>
+      </div>
 
-      <h3>Operations Analytics</h3>
-      <p>Coming soon</p>
+      <div class="case-subject">
+        <h3>Operations Analytics</h3>
+        <p class="coming-soon">
+          Coming soon
+        </p>
+      </div>
 
     </section>
 
