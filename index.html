@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>When is raw data actually ready for analytics? | Saki Chen</title>
+  <title>Saki Chen | Analytics Portfolio</title>
 
   <style>
     * {
@@ -16,210 +16,127 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
       color: #1f2933;
       background: #ffffff;
-      line-height: 1.65;
+      line-height: 1.6;
     }
 
-    .container {
-      max-width: 900px;
+    header,
+    main {
+      max-width: 1000px;
       margin: 0 auto;
-      padding: 0 32px;
+      padding-left: 32px;
+      padding-right: 32px;
     }
 
-    nav {
-      padding-top: 32px;
-      padding-bottom: 32px;
-      border-bottom: 1px solid #e4e7eb;
+    header {
+      padding-top: 80px;
+      padding-bottom: 55px;
     }
 
-    nav a {
-      color: #52606d;
-      text-decoration: none;
-      font-size: 14px;
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 42px;
+      letter-spacing: -1px;
+    }
+
+    header .role {
+      margin: 0 0 22px;
+      font-size: 18px;
       font-weight: 600;
-    }
-
-    nav a:hover {
       color: #1f2933;
     }
 
-    .hero {
-      padding-top: 75px;
-      padding-bottom: 60px;
-    }
-
-    .label {
-      margin-bottom: 18px;
-      color: #7b8794;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 1.6px;
-      text-transform: uppercase;
-    }
-
-    h1 {
-      max-width: 780px;
-      margin: 0 0 24px;
-      font-size: 46px;
-      line-height: 1.15;
-      letter-spacing: -1.2px;
-    }
-
-    .subtitle {
-      max-width: 720px;
+    header .intro {
+      max-width: 680px;
       margin: 0;
-      color: #52606d;
       font-size: 20px;
-      line-height: 1.55;
+      line-height: 1.5;
+      color: #52606d;
     }
 
-    .meta {
-      margin-top: 28px;
-      color: #7b8794;
-      font-size: 14px;
+    .divider {
+      max-width: 936px;
+      margin: 0 auto;
+      border: 0;
+      border-top: 1px solid #e4e7eb;
     }
 
-    article {
+    main {
+      padding-top: 50px;
       padding-bottom: 100px;
     }
 
-    .section {
-      padding: 52px 0;
-      border-top: 1px solid #e4e7eb;
+    section {
+      margin-bottom: 60px;
     }
 
-    h2 {
-      margin: 0 0 20px;
-      font-size: 26px;
-      letter-spacing: -0.4px;
+    section h2 {
+      margin-bottom: 35px;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #7b8794;
     }
 
-    p {
+    .item {
+      margin-bottom: 36px;
+    }
+
+    .item h3 {
+      margin: 0 0 6px;
+      font-size: 22px;
+      color: #1f2933;
+    }
+
+    .item p {
       max-width: 740px;
-      margin: 0 0 18px;
-      color: #3e4c59;
-      font-size: 17px;
-    }
-
-    .case-image {
-      margin: 34px 0 14px;
-    }
-
-    .case-image img {
-      display: block;
-      width: 100%;
-      height: auto;
-      border: 1px solid #e4e7eb;
-      border-radius: 8px;
-    }
-
-    .caption {
-      margin-top: 10px;
-      color: #7b8794;
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .evidence {
-      margin: 28px 0 8px;
-      padding: 26px 28px;
-      background: #f7f8fa;
-      border: 1px solid #e4e7eb;
-      border-radius: 8px;
-    }
-
-    .evidence strong {
-      display: block;
-      margin-bottom: 12px;
-      color: #1f2933;
-      font-size: 16px;
-    }
-
-    .evidence p {
-      margin-bottom: 8px;
-      font-size: 16px;
-    }
-
-    .steps {
-      margin-top: 30px;
-    }
-
-    .step {
-      display: grid;
-      grid-template-columns: 55px 1fr;
-      gap: 12px;
-      margin-bottom: 26px;
-    }
-
-    .step-number {
-      color: #9aa5b1;
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .step h3 {
-      margin: 0 0 5px;
-      font-size: 18px;
-    }
-
-    .step p {
       margin: 0;
-      font-size: 16px;
-    }
-
-    .takeaway {
-      margin-top: 30px;
-      padding-left: 22px;
-      border-left: 3px solid #52606d;
-    }
-
-    .takeaway p {
-      color: #1f2933;
-      font-size: 19px;
-      font-weight: 600;
-    }
-
-    .project-link {
-      display: inline-block;
-      margin-top: 14px;
-      color: #1f2933;
-      font-size: 16px;
-      font-weight: 700;
-      text-decoration: none;
-      border-bottom: 1px solid #1f2933;
-    }
-
-    .project-link:hover {
       color: #52606d;
-      border-color: #52606d;
+      font-size: 16px;
     }
 
-    footer {
-      padding: 35px 0 60px;
+    .case-subject {
+      margin-top: 34px;
+    }
+
+    .case-subject h3 {
+      margin-bottom: 8px;
+      font-size: 20px;
+    }
+
+    .case {
+      margin: 0;
+      color: #52606d;
+      font-size: 16px;
+    }
+
+    .coming-soon {
+      color: #9aa5b1;
+      font-size: 15px;
+    }
+
+    main hr {
+      margin: 60px 0;
+      border: 0;
       border-top: 1px solid #e4e7eb;
-      color: #7b8794;
-      font-size: 14px;
     }
 
     @media (max-width: 700px) {
-      .container {
-        padding-left: 22px;
-        padding-right: 22px;
-      }
-
-      .hero {
+      header {
         padding-top: 50px;
       }
 
-      h1 {
-        font-size: 36px;
+      header h1 {
+        font-size: 34px;
       }
 
-      .subtitle {
+      header .intro {
         font-size: 18px;
       }
 
-      .step {
-        grid-template-columns: 42px 1fr;
+      header,
+      main {
+        padding-left: 22px;
+        padding-right: 22px;
       }
     }
   </style>
@@ -227,249 +144,98 @@
 
 <body>
 
-  <div class="container">
+  <header>
+    <h1>Saki Chen</h1>
 
-    <nav>
-      <a href="/">← Saki Chen / Analytics Portfolio</a>
-    </nav>
+    <p class="role">
+      Business-first Analytics
+    </p>
 
-    <header class="hero">
+    <p class="intro">
+      Turning business questions into trusted data,
+      meaningful metrics, and actionable insights.
+    </p>
+  </header>
 
-      <div class="label">
-        Case Study 01 · Data Quality
+  <hr class="divider">
+
+  <main>
+
+    <!-- CATEGORY 1 -->
+    <section>
+      <h2>Projects</h2>
+
+      <div class="item">
+        <h3>SNAP Analytics Platform</h3>
+        <p>
+          An end-to-end analytics platform built with public SNAP data,
+          covering ingestion, data quality, transformation,
+          metric design, and reporting.
+        </p>
       </div>
 
-      <h1>
-        When is raw data actually ready for analytics?
-      </h1>
+      <div class="item">
+        <h3>Jira Sprint Analytics</h3>
+        <p>
+          An analytics workflow designed to identify delivery,
+          staffing, and operational risks across sprint data.
+        </p>
+      </div>
+    </section>
 
-      <p class="subtitle">
-        A real-world data quality case from my SNAP Analytics Platform:
-        turning public Excel reports into trusted, analysis-ready data.
-      </p>
+    <hr>
 
-      <div class="meta">
-        SNAP Analytics Platform · Python · Pandas · Data Quality
+    <!-- CATEGORY 2 -->
+    <section>
+      <h2>Case Studies</h2>
+
+      <div class="case-subject">
+        <h3>Data Quality</h3>
+        <p class="case">
+          <a href="case-studies/data-quality/case-01.html">
+          Case 01 — When is raw data actually ready for analytics? →
+          </a>
+        </p>
       </div>
 
-    </header>
-
-    <article>
-
-      <!-- CONTEXT -->
-      <section class="section">
-
-        <h2>The Context</h2>
-
-        <p>
-          While building my SNAP Analytics Platform, I started with 12 monthly
-          public SNAP reports published as Excel files, containing 3,108 raw rows.
+      <div class="case-subject">
+        <h3>KPI &amp; Metric Design</h3>
+        <p class="coming-soon">
+          Coming soon
         </p>
+      </div>
 
-        <p>
-          At first glance, the data looked structured: county names were in rows,
-          metrics were in columns, and the files opened cleanly in Excel.
+      <div class="case-subject">
+        <h3>Root Cause Analysis</h3>
+        <p class="coming-soon">
+          Coming soon
         </p>
+      </div>
 
-        <p>
-          But looking like a table and being analytics-ready are two very
-          different things.
+      <div class="case-subject">
+        <h3>Dashboard &amp; BI</h3>
+        <p class="coming-soon">
+          Coming soon
         </p>
+      </div>
 
-        <figure class="case-image">
-          <img
-            src="case1_evidence.png"
-            alt="Raw SNAP Excel data used in the Data Quality case study">
-          <figcaption class="caption">
-            Raw public SNAP data. The spreadsheet looks structured, but
-            visual structure alone does not guarantee analytical reliability.
-          </figcaption>
-        </figure>
-
-      </section>
-
-
-      <!-- WHAT I FOUND -->
-      <section class="section">
-
-        <h2>What I Found</h2>
-
-        <p>
-          Before using the data for KPI calculations or reporting, I profiled
-          the raw files and found several issues that could silently affect
-          downstream analysis.
+      <div class="case-subject">
+        <h3>Analytics Engineering</h3>
+        <p class="coming-soon">
+          Coming soon
         </p>
+      </div>
 
-        <figure class="case-image">
-          <img
-            src="case1_problem.png"
-            alt="Examples of data quality issues identified in the SNAP source data">
-          <figcaption class="caption">
-            Examples of issues surfaced during profiling and validation.
-          </figcaption>
-        </figure>
-
-        <div class="evidence">
-
-          <strong>Examples from the source data</strong>
-
-          <p>Non-county entities appeared alongside actual counties.</p>
-
-          <p>Repeated headers, notes, and structural rows had to be identified.</p>
-
-          <p>Numeric and currency fields were not consistently analysis-ready.</p>
-
-          <p>County values required validation and standardization.</p>
-
-        </div>
-
-      </section>
-
-
-      <!-- APPROACH -->
-      <section class="section">
-
-        <h2>How I Approached It</h2>
-
-        <p>
-          Instead of jumping directly into cleaning, I treated data quality
-          as a sequence of decisions.
+      <div class="case-subject">
+        <h3>Operations Analytics</h3>
+        <p class="coming-soon">
+          Coming soon
         </p>
+      </div>
 
-        <div class="steps">
+    </section>
 
-          <div class="step">
-            <div class="step-number">01</div>
-            <div>
-              <h3>Profile</h3>
-              <p>
-                Understand the structure, values, missingness, and anomalies
-                before changing the data.
-              </p>
-            </div>
-          </div>
-
-          <div class="step">
-            <div class="step-number">02</div>
-            <div>
-              <h3>Clean the structure</h3>
-              <p>
-                Remove rows and elements that do not represent valid
-                analytical records.
-              </p>
-            </div>
-          </div>
-
-          <div class="step">
-            <div class="step-number">03</div>
-            <div>
-              <h3>Standardize and convert</h3>
-              <p>
-                Make formats consistent and convert fields into the data types
-                required for reliable calculations.
-              </p>
-            </div>
-          </div>
-
-          <div class="step">
-            <div class="step-number">04</div>
-            <div>
-              <h3>Validate</h3>
-              <p>
-                Apply business rules to confirm that the resulting dataset is
-                actually usable for county-level analytics.
-              </p>
-            </div>
-          </div>
-
-        </div>
-
-        <figure class="case-image">
-          <img
-            src="case1_approach.png"
-            alt="Before and after comparison of raw and trusted SNAP data">
-          <figcaption class="caption">
-            Before and after: raw source values transformed into standardized,
-            validated, analytics-ready data.
-          </figcaption>
-        </figure>
-
-      </section>
-
-
-      <!-- WHY IT MATTERS -->
-      <section class="section">
-
-        <h2>Why This Matters</h2>
-
-        <p>
-          A dashboard can look perfectly reasonable even when the underlying
-          dataset contains structural or semantic problems.
-        </p>
-
-        <p>
-          For example, if a state-level total, administrative office, or other
-          non-county record enters a county ranking, the SQL can run successfully
-          and the visualization can still look correct — while the business
-          conclusion is wrong.
-        </p>
-
-        <figure class="case-image">
-          <img
-            src="case1_result.png"
-            alt="Business impact of validated versus unvalidated SNAP data">
-          <figcaption class="caption">
-            Data quality changes more than the dataset. It changes the reliability
-            of the KPIs and decisions built on top of it.
-          </figcaption>
-        </figure>
-
-        <div class="takeaway">
-          <p>
-            Data quality is not about making data look clean.
-            It is about deciding when the data is trustworthy enough
-            to support a business decision.
-          </p>
-        </div>
-
-      </section>
-
-
-      <!-- RESULT -->
-      <section class="section">
-
-        <h2>The Result</h2>
-
-        <p>
-          The output of this process becomes the trusted Silver layer of the
-          SNAP Analytics Platform: standardized, validated county-level data
-          that can safely support downstream KPI design, analysis, and reporting.
-        </p>
-
-        <p>
-          This case is one part of a larger project where I am building the
-          workflow from raw public data through data quality, transformation,
-          metrics, and decision-support reporting.
-        </p>
-
-        <a
-          class="project-link"
-          href="https://github.com/sakisakichen/texas-snap-analytics"
-          target="_blank"
-          rel="noopener noreferrer">
-          View SNAP Analytics Platform on GitHub →
-        </a>
-
-      </section>
-
-    </article>
-
-
-    <footer>
-      Saki Chen · Business-first Analytics
-    </footer>
-
-  </div>
+  </main>
 
 </body>
 </html>
