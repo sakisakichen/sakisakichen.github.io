@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>When is raw data actually ready for analytics? | Saki Chen</title>
+  <title>Data Quality Case Study | Saki Chen</title>
 
   <style>
     * {
@@ -22,7 +22,8 @@
     .container {
       max-width: 900px;
       margin: 0 auto;
-      padding: 0 32px;
+      padding-left: 32px;
+      padding-right: 32px;
     }
 
     .top-nav {
@@ -88,6 +89,10 @@
       line-height: 1.25;
     }
 
+    h3 {
+      color: #1f2933;
+    }
+
     p {
       margin: 0 0 18px;
       color: #425164;
@@ -139,25 +144,61 @@
       margin: 0;
     }
 
-    .case-image {
-      margin: 36px 0 4px;
+    .evidence-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 26px;
     }
 
-    .case-image img {
-      display: block;
-      width: 100%;
-      height: auto;
+    .evidence-card {
+      padding: 22px;
       border: 1px solid #e1e5ea;
       border-radius: 8px;
-      background: #f7f8fa;
+      background: #ffffff;
     }
 
-    .caption {
+    .evidence-card strong {
       display: block;
-      margin-top: 12px;
+      margin-bottom: 8px;
+      color: #1f2933;
+    }
+
+    .workflow {
+      margin: 30px 0;
+      padding: 26px;
+      background: #f7f8fa;
+      border-radius: 8px;
+      text-align: center;
+      color: #334e68;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 2;
+    }
+
+    .result-number {
+      font-size: 30px;
+      font-weight: 700;
+      color: #1f2933;
+      margin-bottom: 4px;
+    }
+
+    .result-label {
       color: #7c8b9c;
-      font-size: 13px;
-      line-height: 1.55;
+      font-size: 14px;
+    }
+
+    .results {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    .result-card {
+      padding: 25px;
+      border: 1px solid #e1e5ea;
+      border-radius: 8px;
     }
 
     .takeaway {
@@ -179,7 +220,8 @@
 
     @media (max-width: 700px) {
       .container {
-        padding: 0 20px;
+        padding-left: 20px;
+        padding-right: 20px;
       }
 
       .hero {
@@ -207,259 +249,554 @@
       .takeaway {
         padding: 22px;
       }
+
+      .evidence-grid,
+      .results {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <div class="container">
+<div class="container">
 
-    <nav class="top-nav">
-      <a href="../../index.html">← Saki Chen / Analytics Portfolio</a>
-    </nav>
+  <!-- Navigation -->
+  <nav class="top-nav">
+    <a href="../../index.html">
+      ← Saki Chen / Analytics Portfolio
+    </a>
+  </nav>
 
-    <header class="hero">
 
-      <div class="eyebrow">
-        Case Study 01 · Data Quality
+  <!-- Hero -->
+  <header class="hero">
+
+    <div class="eyebrow">
+      Case Study 01 · Data Quality
+    </div>
+
+    <h1>
+      When is raw data actually ready for analytics?
+    </h1>
+
+    <p class="subtitle">
+      A production-inspired data quality case from my SNAP Analytics Platform:
+      transforming public Excel reports into Trusted Silver through explicit
+      data contracts, business validation, reconciliation, and a publication gate.
+    </p>
+
+    <div class="meta">
+      SNAP Analytics Platform · Python · Pandas · Parquet · Data Quality
+    </div>
+
+  </header>
+
+
+  <!-- Context -->
+  <section class="section">
+
+    <h2>The Context</h2>
+
+    <p>
+      I built this case using public Texas SNAP reporting data.
+      Although the source arrived in Excel, it was designed primarily
+      for human reporting rather than analytical pipelines.
+    </p>
+
+    <p>
+      Before building metrics or dashboards, I needed to answer a more
+      fundamental question:
+      <strong>when is transformed data actually trustworthy enough for downstream analytics?</strong>
+    </p>
+
+    <p>
+      I worked across two source domains:
+      county-level SNAP caseload data and regional processing-timeliness reports.
+      Together, they exposed production-style problems involving source structure,
+      analytical grain, reference data, data types, validation rules,
+      and pipeline failure behavior.
+    </p>
+
+  </section>
+
+
+  <!-- Problems -->
+  <section class="section">
+
+    <h2>What Made the Source Risky?</h2>
+
+    <div class="callout">
+
+      <strong>Examples discovered during profiling and end-to-end testing</strong>
+
+      <p>
+        County-level files contained non-geographic reporting entities such as
+        State Total, State Office, and Call Centers.
+      </p>
+
+      <p>
+        A validation reference initially contained only 9 counties,
+        creating thousands of false validation failures.
+      </p>
+
+      <p>
+        A monetary field that appeared integer-like in most records
+        contained real cents and required a different data type contract.
+      </p>
+
+      <p>
+        Timeliness workbooks contained two logical tables in one worksheet:
+        Applications and Redeterminations, mixed with titles, blank rows,
+        TOTAL rows, and notes.
+      </p>
+
+      <p>
+        Numeric-looking region identifiers such as 01 needed to remain strings
+        because they represented categorical codes rather than measures.
+      </p>
+
+      <p>
+        Some source categories were undocumented, meaning they could not
+        safely be guessed, remapped, or silently deleted.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- Workflow -->
+  <section class="section">
+
+    <h2>The Trusted Silver Workflow</h2>
+
+    <p>
+      I separated transformation from trust.
+      Successfully cleaning and converting a dataset did not automatically
+      make it safe for downstream analytics.
+    </p>
+
+    <div class="workflow">
+      Bronze
+      →
+      Structure Cleaning
+      →
+      Standardization
+      →
+      Type Conversion
+      →
+      Business Validation
+      →
+      Validation Gate
+      →
+      Trusted Silver
+    </div>
+
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-number">01</div>
+
+        <div>
+          <h3>Profile the source</h3>
+
+          <p>
+            Understand structure, value patterns, missingness,
+            categories, and source-specific anomalies before changing data.
+          </p>
+        </div>
       </div>
 
-      <h1>
-        When is raw data actually ready for analytics?
-      </h1>
 
-      <p class="subtitle">
-        A real-world data quality case from my SNAP Analytics Platform:
-        turning public Excel reports into trusted, analysis-ready data.
-      </p>
+      <div class="step">
+        <div class="step-number">02</div>
 
-      <div class="meta">
-        SNAP Analytics Platform · Python · Pandas · Data Quality
+        <div>
+          <h3>Clean the structure</h3>
+
+          <p>
+            Separate analytical records from titles, notes, aggregate rows,
+            and confirmed out-of-grain entities.
+            For semi-structured Excel reports, logical sections are identified
+            using business headers rather than fixed row positions.
+          </p>
+        </div>
       </div>
 
-    </header>
+
+      <div class="step">
+        <div class="step-number">03</div>
+
+        <div>
+          <h3>Standardize representations</h3>
+
+          <p>
+            Correct source-specific representation issues without inventing
+            new business meaning. Representation cleanup and business
+            validation remain separate responsibilities.
+          </p>
+        </div>
+      </div>
 
 
-    <!-- CONTEXT -->
+      <div class="step">
+        <div class="step-number">04</div>
 
-    <section class="section">
+        <div>
+          <h3>Enforce type contracts</h3>
 
-      <h2>The Context</h2>
-
-      <p>
-        While building my SNAP Analytics Platform, I started with monthly
-        public SNAP reports published as Excel files.
-      </p>
-
-      <p>
-        At first glance, the data looked structured: county names were in
-        rows, metrics were in columns, and the files opened cleanly in Excel.
-      </p>
-
-      <p>
-        But looking like a table and being analytics-ready are two very
-        different things.
-      </p>
-
-      <figure class="case-image">
-        <img
-          src="case1_evidence.png"
-          alt="Raw SNAP Excel data used in the Data Quality case study">
-        <figcaption class="caption">
-          Raw public SNAP data. The spreadsheet looks structured, but
-          visual structure alone does not guarantee analytical reliability.
-        </figcaption>
-      </figure>
-
-    </section>
+          <p>
+            Choose target data types from business semantics rather than
+            simply selecting whichever cast succeeds.
+            Counts remain integer-compatible, identifiers remain strings,
+            and monetary values preserve decimal precision when required.
+          </p>
+        </div>
+      </div>
 
 
-    <!-- WHAT I FOUND -->
+      <div class="step">
+        <div class="step-number">05</div>
 
-    <section class="section">
+        <div>
+          <h3>Validate business rules</h3>
 
-      <h2>What I Found</h2>
+          <p>
+            Check required fields, valid reporting entities,
+            uniqueness at the analytical grain, nonnegative measures,
+            cross-field constraints, and source reconciliation controls.
+          </p>
+        </div>
+      </div>
 
-      <p>
-        Before using the data for KPI calculations or reporting, I profiled
-        the raw files and found several issues that could silently affect
-        downstream analysis.
-      </p>
 
-      <div class="callout">
+      <div class="step">
+        <div class="step-number">06</div>
 
-        <strong>Examples from the source data</strong>
+        <div>
+          <h3>Gate publication</h3>
+
+          <p>
+            PASS publishes Trusted Silver.
+            WARNING preserves evidence without necessarily blocking publication.
+            FAIL generates validation evidence, blocks publication,
+            and raises an error.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- Real Production Failures -->
+  <section class="section">
+
+    <h2>Two Failures That Changed the Design</h2>
+
+    <p>
+      The most useful lessons came from cases where the pipeline failed
+      even though the first explanation turned out to be wrong.
+    </p>
+
+
+    <div class="evidence-grid">
+
+      <div class="evidence-card">
+
+        <strong>01 · Validate the Validator</strong>
 
         <p>
-          Non-county entities appeared alongside actual counties.
+          The Eligibility pipeline initially reported
+          <strong>2,981 invalid reporting entities</strong>.
         </p>
 
         <p>
-          Repeated headers, notes, and structural rows had to be identified.
+          Instead of assuming that most of the source data was bad,
+          I profiled the failing population and inspected the validation reference.
         </p>
 
         <p>
-          Numeric and currency fields were not consistently analysis-ready.
+          The real problem was the validator:
+          the known-county reference contained only 9 counties.
         </p>
 
         <p>
-          County values required validation and standardization.
+          I replaced it with the full 254-county reference and treated
+          reference data as a governed dependency rather than assuming
+          the validation rule itself was always correct.
         </p>
 
       </div>
 
-      <figure class="case-image">
-        <img
-          src="case1_problem.png"
-          alt="Examples of data quality issues identified in the SNAP source data">
-        <figcaption class="caption">
-          Examples of issues surfaced during profiling and validation.
-        </figcaption>
-      </figure>
 
-    </section>
+      <div class="evidence-card">
+
+        <strong>02 · Let Business Meaning Drive Data Types</strong>
+
+        <p>
+          A SNAP payment field failed an integer conversion because
+          the raw source contained values with real cents.
+        </p>
+
+        <p>
+          Instead of truncating the value or switching types simply
+          to make the pipeline pass, I reconciled the failed record
+          against the raw Excel source.
+        </p>
+
+        <p>
+          The decimal value was legitimate business data.
+        </p>
+
+        <p>
+          The correct fix was therefore to update the target schema
+          and preserve exact monetary precision.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
 
 
-    <!-- APPROACH -->
+  <!-- Troubleshooting -->
+  <section class="section">
 
-    <section class="section">
+    <h2>How I Troubleshot Pipeline Failures</h2>
 
-      <h2>How I Approached It</h2>
+    <p>
+      Rather than immediately changing code when a pipeline failed,
+      I used a structured troubleshooting path to narrow the problem first.
+    </p>
 
-      <p>
-        Instead of jumping directly into cleaning, I treated data quality
-        as a sequence of decisions.
-      </p>
+    <div class="workflow">
+      Stage
+      →
+      Failed Rule
+      →
+      Affected Column
+      →
+      Row Pattern
+      →
+      Raw Source Evidence
+    </div>
 
-      <div class="steps">
+    <p>
+      This distinction mattered because a pipeline failure could come from
+      transformation logic, source data, reference data,
+      or an incorrect business assumption.
+    </p>
 
-        <div class="step">
-          <div class="step-number">01</div>
+    <p>
+      For example, when a Timeliness downstream input was missing,
+      I traced the dependency upstream instead of changing Silver logic.
+      The raw files existed, but the Bronze dataset had never been created
+      because the ingestion process did not yet include Timeliness.
+    </p>
 
-          <div>
-            <h3>Profile</h3>
-            <p>
-              Understand the structure, values, missingness, and anomalies
-              before changing the data.
-            </p>
-          </div>
+    <p>
+      The fix belonged in the ingestion layer, not the downstream transformation.
+    </p>
+
+  </section>
+
+
+  <!-- Production Decisions -->
+  <section class="section">
+
+    <h2>Production Decisions</h2>
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-number">01</div>
+
+        <div>
+          <h3>Analytical grain determines the data population</h3>
+
+          <p>
+            Eligibility was defined at County × Month grain.
+            State Total, State Office, and Call Centers therefore did not
+            belong in the county-level analytical population,
+            even when they contained legitimate source values.
+          </p>
+        </div>
+      </div>
+
+
+      <div class="step">
+        <div class="step-number">02</div>
+
+        <div>
+          <h3>Source totals are controls, not analytical records</h3>
+
+          <p>
+            TOTAL rows were useful for reconciling extracted detail records,
+            but publishing them alongside detail rows would create
+            mixed grain and double counting.
+          </p>
+        </div>
+      </div>
+
+
+      <div class="step">
+        <div class="step-number">03</div>
+
+        <div>
+          <h3>Unknown categories should not be guessed</h3>
+
+          <p>
+            Undocumented source categories were preserved and flagged
+            rather than silently mapped or deleted until their
+            business meaning could be confirmed.
+          </p>
+        </div>
+      </div>
+
+
+      <div class="step">
+        <div class="step-number">04</div>
+
+        <div>
+          <h3>Warnings and failures have different meanings</h3>
+
+          <p>
+            Blocking integrity problems stop publication.
+            Non-blocking anomalies remain visible as warnings
+            so the pipeline preserves evidence without treating
+            every unusual value as a production failure.
+          </p>
+        </div>
+      </div>
+
+
+      <div class="step">
+        <div class="step-number">05</div>
+
+        <div>
+          <h3>Source metrics are not automatically governed metrics</h3>
+
+          <p>
+            Timeliness source percentages are retained for reconciliation,
+            while the governed analytical rate is calculated from
+            underlying timely and disposed counts.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- Result -->
+  <section class="section">
+
+    <h2>The Result</h2>
+
+    <div class="results">
+
+      <div class="result-card">
+
+        <div class="result-number">
+          3,048
         </div>
 
-
-        <div class="step">
-          <div class="step-number">02</div>
-
-          <div>
-            <h3>Clean the structure</h3>
-            <p>
-              Remove rows and elements that do not represent valid
-              analytical records.
-            </p>
-          </div>
+        <div class="result-label">
+          Trusted Eligibility records
         </div>
 
-
-        <div class="step">
-          <div class="step-number">03</div>
-
-          <div>
-            <h3>Standardize and convert</h3>
-            <p>
-              Make formats consistent and convert fields into the data
-              types required for reliable calculations.
-            </p>
-          </div>
-        </div>
-
-
-        <div class="step">
-          <div class="step-number">04</div>
-
-          <div>
-            <h3>Validate</h3>
-            <p>
-              Apply business rules to confirm that the resulting dataset
-              is actually usable for analytics.
-            </p>
-          </div>
-        </div>
-
-      </div>
-
-      <figure class="case-image">
-        <img
-          src="case1_approach.png"
-          alt="Before and after comparison of raw and trusted SNAP data">
-        <figcaption class="caption">
-          Moving from raw source data toward standardized and validated
-          analytics-ready records.
-        </figcaption>
-      </figure>
-
-    </section>
-
-
-    <!-- WHY IT MATTERS -->
-
-    <section class="section">
-
-      <h2>Why This Matters</h2>
-
-      <p>
-        Data quality is not only about making a dataset look cleaner.
-        The real question is whether the data can safely support the
-        business metrics built on top of it.
-      </p>
-
-      <p>
-        If invalid entities, inconsistent formats, or incorrect data types
-        make it downstream, the issue is no longer just a cleaning problem.
-        It becomes a KPI and decision-making problem.
-      </p>
-
-      <figure class="case-image">
-        <img
-          src="case1_result.png"
-          alt="Business impact of validated versus unvalidated SNAP data">
-        <figcaption class="caption">
-          Data quality changes more than the dataset. It changes the
-          reliability of the KPIs and decisions built on top of it.
-        </figcaption>
-      </figure>
-
-    </section>
-
-
-    <!-- TAKEAWAY -->
-
-    <section class="section">
-
-      <h2>My Takeaway</h2>
-
-      <div class="takeaway">
-
-        <p>
-          The most important lesson was that data quality is not simply
-          a cleaning step between ingestion and reporting.
-        </p>
-
-        <p>
-          It is the process of deciding what the data means, what should
-          be trusted, and what conditions must be true before that data
-          can support a business decision.
+        <p style="margin-top: 16px;">
+          254 Texas counties × 12 reporting months,
+          published at a clear County × Month analytical grain.
         </p>
 
       </div>
 
-    </section>
+
+      <div class="result-card">
+
+        <div class="result-number">
+          2
+        </div>
+
+        <div class="result-label">
+          Trusted Silver domains
+        </div>
+
+        <p style="margin-top: 16px;">
+          Eligibility/Caseload and Timeliness are now validated
+          upstream datasets ready for Gold dimensional modeling.
+        </p>
+
+      </div>
+
+    </div>
 
 
-    <footer>
-      Saki Chen · Business-first Analytics
-    </footer>
+    <p>
+      Timeliness is modeled separately at
+      <strong>Region × Reporting Month × Processing Type</strong>,
+      preserving Applications and Redeterminations as distinct
+      operational processes.
+    </p>
 
-  </div>
+    <p>
+      With both Silver domains trusted, the project can now move
+      into Gold dimensional modeling and governed metric design
+      without rebuilding business logic directly from raw reports.
+    </p>
+
+  </section>
+
+
+  <!-- Takeaway -->
+  <section class="section">
+
+    <h2>What I Took Away</h2>
+
+    <div class="takeaway">
+
+      <p>
+        The most important lesson was that data quality is not simply
+        a cleaning step.
+      </p>
+
+      <p>
+        It requires explicit decisions about analytical grain,
+        business meaning, schema, reference data,
+        acceptable exceptions, validation severity,
+        and failure behavior.
+      </p>
+
+      <p>
+        Automated tests verify the rules I wrote.
+        Human validation helps confirm that I wrote the right rules.
+      </p>
+
+      <p>
+        <strong>
+          Trusted Silver is earned through validation,
+          not simply through transformation.
+        </strong>
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <footer>
+    Saki Chen · Business-first Analytics
+  </footer>
+
+</div>
 
 </body>
 </html>
